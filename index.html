@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>بوابة أعضاء اترك أثر</title>
+
+  <!-- خطوط وأيقونات -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- تنسيق احترافي -->
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-box {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      text-align: center;
+      width: 360px;
+    }
+
+    .login-box h2 {
+      color: #ff6f00; /* برتقالي */
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+
+    .input-group {
+      position: relative;
+      margin: 15px 0;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 40px 12px 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    .input-group input:focus {
+      border-color: #ff6f00;
+      outline: none;
+      box-shadow: 0 0 8px rgba(255,111,0,0.4);
+    }
+
+    .input-group i {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      color: #aaa;
+      font-size: 18px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      background: #ff6f00; /* برتقالي */
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+
+    .login-box button:hover {
+      background: #e65c00;
+    }
+
+    #msg {
+      margin-top: 20px;
+      font-size: 15px;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="login-box">
+  <h2>تسجيل دخول أعضاء منظمة اترك أثر</h2>
+
+  <div class="input-group">
+    <input type="email" id="email" placeholder="الإيدي (البريد الإلكتروني)">
+    <i class="fa fa-envelope"></i>
+  </div>
+
+  <div class="input-group">
+    <input type="password" id="password" placeholder="كلمة المرور">
+    <i class="fa fa-lock"></i>
+  </div>
+
+  <button onclick="login()">دخول</button>
+
+  <p id="msg"></p>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script>
+  // 🔴 إعدادات Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyA9NUpJ0-VFeAz6vC8OiF9GWfPZpUhtLgs",
+    authDomain: "leave-atrace.firebaseapp.com"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(() => {
+        document.getElementById("msg").style.color = "green";
+        document.getElementById("msg").innerHTML = "تم تسجيل الدخول بنجاح ✅";
+      })
+      .catch(error => {
+        document.getElementById("msg").style.color = "red";
+        document.getElementById("msg").innerHTML = "خطأ: تأكد من الإيدي أو كلمة المرور";
+      });
+  }
+</script>
+
+</body>
+</html>
